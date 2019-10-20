@@ -12,7 +12,7 @@ const app = express();
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/tasks', { useNewUrlParser: true });
 app.set('view engine', 'ejs');
-app.set('public', __dirname + '/public');
+app.use(express.static( __dirname+'/public/dist/public'));
 app.use(express.urlencoded({ extended: true }));
 //app.use(express.json());
 
@@ -25,7 +25,7 @@ mongoose.model('Task', TaskSchema)
 const Task = mongoose.model('Task')
 
 //get all tasks
-app.get("/tasks", (req,res) => {
+app.get('/tasks', (req,res) => {
     Task.find() 
     .then(data => res.json(data))
     .catch(err => res.json(err));
@@ -77,4 +77,4 @@ app.delete('/delete/:id', (req, res) => {
         }
     })
 })
-app.listen(3000, () => console.log("listening on port 3000"))
+app.listen(4200, () => console.log("listening on port 4200"))
